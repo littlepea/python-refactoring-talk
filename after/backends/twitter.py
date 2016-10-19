@@ -1,8 +1,10 @@
 import logging
 import os
-from dateutil import parser
 
+from dateutil import parser
 from TwitterSearch import TwitterSearch, TwitterSearchOrder, TwitterSearchException
+
+from .base import BaseReview
 
 
 class TwitterReviews(object):
@@ -62,10 +64,7 @@ class Reviews(object):
         return Review(tweet)
 
 
-class Review(object):
-    def __init__(self, review):
-        self.review = review
-
+class Review(BaseReview):
     @property
     def author(self):
         return self.review.getUserName()

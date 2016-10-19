@@ -3,6 +3,8 @@ import logging
 from dateutil import parser
 from imdbpie import Imdb
 
+from .base import BaseReview
+
 
 class IMDBReviews(object):
     def __init__(self, movie, limit=10, language='en'):
@@ -33,10 +35,7 @@ class IMDBReviews(object):
             return []
 
 
-class Review(object):
-    def __init__(self, review):
-        self.review = review
-
+class Review(BaseReview):
     @property
     def author(self):
         return self.review.username
