@@ -19,16 +19,17 @@ from TwitterSearch import *
 from dateutil import parser
 from imdbpie import Imdb
 import logging
+import os
 
 def main(title):
     reviews = []
 
     # Search tweets
     ts = TwitterSearch(
-        consumer_key = 'LdOuFqLzmwhT9kRelUBw',
-        consumer_secret = 'orry3Mv7G6XyZlSHgKr3WIWSzJDvTsLAGcsvaWzs',
-        access_token = '38117536-1rZ452ZMzNL7akQ20mf7CaBuM2JXfDEgILaBCwinE',
-        access_token_secret = 'spX9fAe5VZpguNLwZIifY1g05awoIklkjXRmjfueU'
+        consumer_key = os.environ.get('TWITTER_CONSUMER_KEY'),
+        consumer_secret = os.environ.get('TWITTER_CONSUMER_SECRET'),
+        access_token = os.environ.get('TWITTER_ACCESS_TOKEN'),
+        access_token_secret = os.environ.get('TWITTER_TOKEN_SECRET')
     )
     try:
         ts.connect()
@@ -81,7 +82,7 @@ def main(title):
     url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json"
     data = {
         'query': title,
-        'api-key': 'ebcc7a694ae34583a43da210bae3a426'
+        'api-key': os.environ.get('NY_TIMES_API_KEY')
     }
     response = requests.get(url, data)
     count = 0

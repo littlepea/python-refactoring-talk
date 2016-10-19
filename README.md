@@ -1,6 +1,6 @@
 # Refactoring Python Code talk
 
-Slides and code for the "Refactoring Python Code" talk at the Beijing Python Meetup
+Slides and code for the "Refactoring Python Code" talk at the [Beijing Python Meetup](https://www.meetup.com/Beijing-Python/events/234021155/).
 
 
 ## Talk Description
