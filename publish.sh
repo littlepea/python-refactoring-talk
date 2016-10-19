@@ -1,7 +1,7 @@
-jupyter-nbconvert --to slides refactoring.ipynb
 git commit -a -m "update slides"
 
 git checkout -B gh-pages
+jupyter-nbconvert --to slides refactoring.ipynb
 mv refactoring.slides.html index.html
 git commit -a -m "update pages"
 git push origin master gh-pages
