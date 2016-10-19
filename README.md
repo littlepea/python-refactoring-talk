@@ -1,6 +1,6 @@
 # Refactoring Python Code talk
 
-Slides and code for the "Refactoring Python Code" talk at the [Beijing Python Meetup](https://www.meetup.com/Beijing-Python/events/234021155/).
+[Slides](https://littlepea.github.io/python-refactoring-talk/) and code for the "Refactoring Python Code" talk at the [Beijing Python Meetup](https://www.meetup.com/Beijing-Python/events/234021155/).
 
 ---
 
@@ -35,5 +35,54 @@ This is an Intermediate level talk but both beginners and advanced developers wi
 
 ### References:
 
+* [Presentation Slides](https://littlepea.github.io/python-refactoring-talk/)
 * [Pull Request](https://github.com/littlepea/python-refactoring-talk/pull/1/files?diff=unified)
 * [Commits](https://github.com/littlepea/python-refactoring-talk/pull/1/commits)
+
+---
+
+## Running the example code
+
+### Set up the environment
+
+```
+virtualenv env
+. env/bin/activate
+pip install -r requirements.txt
+```
+
+#### Make sure you have the following ENV vars set up:
+
+* TWITTER_CONSUMER_KEY
+* TWITTER_CONSUMER_SECRET
+* TWITTER_ACCESS_TOKEN
+* TWITTER_TOKEN_SECRET
+* NY_TIMES_API_KEY
+
+### Run "before" code
+
+```
+python before/movie_reviews.py Spy
+```
+
+Where "Spy" is the name of the movie to search reviews for.
+
+### Run "after" code
+
+```
+python after/movie_reviews.py Spy
+```
+
+Where "Spy" is the name of the movie to search reviews for.
+
+### Run the Jupyter notebook
+
+```
+jupyter notebook
+```
+
+### Create the slides
+
+```
+jupyter-nbconvert --to slides refactoring.ipynb --post serve
+```
