@@ -98,7 +98,7 @@ def main(title):
         count += 1
 
     # Sort reviews by date
-    reviews.sort(cmp=_cmprev)
+    reviews.sort(cmp=_sort_by_date_desc)
 
     # Display reviews
     for review in reviews:
@@ -109,13 +109,16 @@ def main(title):
             review['source']))
 
 
-def _cmprev(r1, r2):
-    if r1['date'] > r2['date']:
+def _sort_by_date_desc(first, second):
+    first_date = first['date']
+    second_date = second['date']
+
+    if first_date > second_date:
         return -1
-    elif r1['date'] < r2['date']:
+    elif first_date < second_date:
         return 1
-    else:
-        return 0
+
+    return 0
 
 
 if __name__ == '__main__':
