@@ -2,12 +2,14 @@
 
 Slides and code for the "Refactoring Python Code" talk at the [Beijing Python Meetup](https://www.meetup.com/Beijing-Python/events/234021155/).
 
+---
 
 ## Talk Description
 
 * Title: Refactoring Python Code
 * Duration: 1 hour
 * Level: Intermediate
+* Presenter: [Evgeny Demchenko](https://twitter.com/littlepea12)
 
 ## Summary
 
@@ -28,3 +30,10 @@ In this talk, we're going to get our hands dirty by walking through some example
 applied to an existing application of aggregating movie reviews from multiple sources.
  
 This is an Intermediate level talk but both beginners and advanced developers will find something new or useful here too.
+
+---
+
+### References:
+
+* [Pull Request](https://github.com/littlepea/python-refactoring-talk/pull/1/files?diff=unified)
+* [Commits](https://github.com/littlepea/python-refactoring-talk/pull/1/commits)
