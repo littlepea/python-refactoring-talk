@@ -18,46 +18,16 @@ import requests
 from docopt import docopt
 from dateutil import parser
 from imdbpie import Imdb
-from TwitterSearch import TwitterSearch, TwitterSearchOrder, TwitterSearchException
+
+from backends import TwitterReviews
 
 
 def main(title):
     reviews = []
 
-    # Search tweets
-    ts = TwitterSearch(
-        consumer_key=os.environ.get('TWITTER_CONSUMER_KEY'),
-        consumer_secret=os.environ.get('TWITTER_CONSUMER_SECRET'),
-        access_token=os.environ.get('TWITTER_ACCESS_TOKEN'),
-        access_token_secret=os.environ.get('TWITTER_TOKEN_SECRET')
-    )
-    try:
-        ts.connect()
-
-        tso = TwitterSearchOrder()
-        tso.setKeywords(['#' + title + 'Movie'])
-        tso.setLanguage('en')
-        tso.setIncludeEntities(False)
-
-        results = ts.getSearchResults(tso)
-
-    except TwitterSearchException as e:
-        logging.exception(str(e))
-        ts.cleanUp()
-    else:
-        for offset in range(results.getSize()):
-            if offset > 9:
-                break
-            tweet = results.getTweetByIndex(offset)
-            reviews.append({
-                'author': tweet.getUserName(),
-                'summary': tweet.getText(),
-                'text': tweet.getText(),
-                'date': parser.parse(tweet.getCreatedDate(), ignoretz=True),
-                'source': 'Twitter'
-            })
-    finally:
-        ts.disconnect()
+    with TwitterReviews(title) as reviews_backend:
+        for review in reviews_backend.reviews:
+            reviews.append(review)
 
     # Search Imdb
     imdb = Imdb()
