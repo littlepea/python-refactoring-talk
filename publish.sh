@@ -7,4 +7,5 @@ git commit -a -m "update pages"
 git push origin master gh-pages
 
 git checkout master
+rm -rf index.html
 git push origin master
