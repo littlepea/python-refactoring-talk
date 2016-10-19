@@ -11,41 +11,22 @@ Options:
   -h --help     Show this screen.
   --version     Show version.
 """
-import logging
 import os
 import requests
 
 from docopt import docopt
 from dateutil import parser
-from imdbpie import Imdb
 
-from backends import TwitterReviews
+from backends import TwitterReviews, IMDBReviews
 
 
 def main(title):
     reviews = []
 
-    with TwitterReviews(title) as reviews_backend:
-        for review in reviews_backend.reviews:
-            reviews.append(review)
-
-    # Search Imdb
-    imdb = Imdb()
-    try:
-        response = imdb.search_for_title(title)[0]
-        title_id = response['imdb_id']
-        response = imdb.get_title_reviews(title_id, max_results=10)
-    except IndexError as e:
-        logging.exception(str(e))
-    else:
-        for review in response:
-            reviews.append({
-                'author': review.username,
-                'summary': review.summary,
-                'text': review.text,
-                'date': parser.parse(review.date, ignoretz=True),
-                'source': 'IMDB'
-            })
+    for backend_class in (TwitterReviews, IMDBReviews):
+        with backend_class(title) as reviews_backend:
+            for review in reviews_backend.reviews:
+                reviews.append(review)
 
     # Search NYTimes
     url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json"
