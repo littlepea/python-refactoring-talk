@@ -17,36 +17,16 @@ import requests
 from docopt import docopt
 from dateutil import parser
 
-from backends import TwitterReviews, IMDBReviews
+from backends import TwitterReviews, IMDBReviews, NYTimesReviews
 
 
 def main(title):
     reviews = []
 
-    for backend_class in (TwitterReviews, IMDBReviews):
+    for backend_class in (TwitterReviews, IMDBReviews, NYTimesReviews):
         with backend_class(title) as reviews_backend:
             for review in reviews_backend.reviews:
                 reviews.append(review)
-
-    # Search NYTimes
-    url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json"
-    data = {
-        'query': title,
-        'api-key': os.environ.get('NY_TIMES_API_KEY')
-    }
-    response = requests.get(url, data)
-    count = 0
-    for review in response.json()['results']:
-        if count > 9:
-            break
-        reviews.append({
-            'author': review['byline'],
-            'summary': review['headline'],
-            'text': review['summary_short'],
-            'date': parser.parse(review['date_updated'], ignoretz=True),
-            'source': 'NYTimes'
-        })
-        count += 1
 
     # Sort reviews by date
     reviews.sort(cmp=_sort_by_date_desc)
