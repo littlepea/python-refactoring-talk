@@ -22,8 +22,7 @@ class TwitterSearchTest(unittest.TestCase):
     def apiAnsweringMachine(self, filename):
         """ Generates faked API responses by returing content of a given file """
         f = open(filename, 'r')
-        for line in f:
-            yield line
+        yield from f
         f.close()
 
     def setUp(self):
@@ -116,7 +115,7 @@ class TwitterSearchTest(unittest.TestCase):
         tuo = self.createTUO()
         tweet_cnt = 0
 
-        for tweet in ts.search_tweets_iterable(tuo):
+        for _ in ts.search_tweets_iterable(tuo):
             tweet_cnt += 1
 
         # test statistics
@@ -176,7 +175,7 @@ class TwitterSearchTest(unittest.TestCase):
         ts = self.createTS()
 
         tweet_cnt = 0
-        for tweet in ts.search_tweets_iterable(tso):
+        for _ in ts.search_tweets_iterable(tso):
             tweet_cnt += 1
 
         self.assertEqual( (cnt*4-1), tweet_cnt, "Wrong amount of tweets")

@@ -287,8 +287,7 @@ class TwitterSearch(object):
         """
         Temporary method just to demonstrate Java-like API naming for future refactoring
         """
-        results = TwitterSearchResults(self.search_tweets(order))
-        return results
+        return TwitterSearchResults(self.search_tweets(order))
 
     def connect(self):
         """

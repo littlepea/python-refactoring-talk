@@ -101,7 +101,7 @@ class TwitterSearchOrderTest(unittest.TestCase):
         """ Tests TwitterSearchOrder.set_max_id() """
 
         tso = self.getCopy()
-        correct_values = [ self.generateInt(1,999999999) for x in range(0,10) ]
+        correct_values = [self.generateInt(1,999999999) for x in range(10)]
 
         for value in correct_values:
             tso.set_max_id(value)
@@ -121,7 +121,7 @@ class TwitterSearchOrderTest(unittest.TestCase):
         """ Tests TwitterSearchOrder.set_since_id() """
 
         tso = self.getCopy()
-        correct_values = [ self.generateInt(1,999999999) for x in range(0,10) ]
+        correct_values = [self.generateInt(1,999999999) for x in range(10)]
 
         for value in correct_values:
             tso.set_since_id(value)
@@ -162,7 +162,7 @@ class TwitterSearchOrderTest(unittest.TestCase):
                 tso.set_geocode( value, value, radius, imperial_metric=unit)
                 self.assertTrue(False, "Not raising exception for lat %s, lon %s, radius %s and metric %s" % (value,value,radius,unit))
             except TwitterSearchException as e:
-                self.assertTrue((e.code == 1004 or e.code == 1005), "Wrong exception code")
+                self.assertTrue(e.code in [1004, 1005], "Wrong exception code")
 
         try:
             tso.set_geocode(2.0,1.0,10, imperial_metric='foo')
@@ -178,7 +178,7 @@ class TwitterSearchOrderTest(unittest.TestCase):
         """ Tests TwitterSearchOrder.set_count() """
 
         tso = self.getCopy()
-        correct_values = [ self.generateInt(minimum=1,maximum=100) for x in range(0,10) ]
+        correct_values = [self.generateInt(minimum=1,maximum=100) for x in range(10)]
 
         for value in correct_values:
             tso.set_count(value)
@@ -198,7 +198,7 @@ class TwitterSearchOrderTest(unittest.TestCase):
         """ Tests TwitterSearchOrder.set_callback() """
 
         tso = self.getCopy()
-        correct_values = [ self.generateString() for x in range(0,10) ]
+        correct_values = [self.generateString() for x in range(10)]
 
         for value in correct_values:
             tso.set_callback(value)
@@ -417,10 +417,10 @@ class TwitterSearchOrderTest(unittest.TestCase):
     def test_TO_exceptions(self):
         """ Tests unimplemented TwitterOrder functions aiming for exceptions """
 
-        value = "foo"
         exc_class = NotImplementedError
         to = TwitterOrder()
         with self.assertRaises(exc_class):
+            value = "foo"
             to.set_search_url(value)
             to.create_search_url()
 

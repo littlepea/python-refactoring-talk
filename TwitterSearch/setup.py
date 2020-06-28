@@ -8,10 +8,7 @@ def readme():
         return f.read()
 
 def requirements():
-    req = []
-    for line in open('requirements.txt','r'):
-        req.append(line.split()[0])
-    return req
+    return [line.split()[0] for line in open('requirements.txt','r')]
 
 setup(name='TwitterSearch',
       version='1.0.1',
