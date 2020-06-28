@@ -31,11 +31,10 @@ class NYTimesReviews(object):
         return response.json()['results']
 
     def _prepare_request_data(self):
-        data = {
+        return {
             'query': self.movie,
             'api-key': self.api_key
         }
-        return data
 
 
 class Review(BaseReview):

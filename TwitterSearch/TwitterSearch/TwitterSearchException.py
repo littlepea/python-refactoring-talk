@@ -35,10 +35,7 @@ class TwitterSearchException(Exception):
 
     def __init__(self, code, msg=None):
         self.code = code
-        if msg:
-            self.message = msg
-        else:
-            self.message = self._error_codes.get(code)
+        self.message = msg if msg else self._error_codes.get(code)
 
     def __str__(self):
         return "Error %i: %s" % (self.code, self.message)
